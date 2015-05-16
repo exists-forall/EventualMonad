@@ -85,7 +85,7 @@ let
 	state0 = Eventual.eventualState Map.empty
 ```
 
-Importantly, an `EventualState` keeps track of not just the storage context in which eventual operations can occur, but also the queued operations which are currently waiting for new data.  `Eventual` operations are performed using the function `runEventual`, which is similar to `runState` and friends from other monads.  `runEventual` applies an `Eventual` operation to an `EventualContext`, producing a new context.  Its type is:
+Importantly, an `EventualState` keeps track of not just the storage context in which eventual operations can occur, but also the queued operations which are currently waiting for new data.  `Eventual` operations are performed using the function `runEventual`, which is similar to `runState` and friends from other monads.  `runEventual` applies an `Eventual` operation to an `EventualState`, producing a new context.  Its type is:
 
 ```Haskell
 runEventual :: Eventual w () -> EventualState w -> EventualState w
