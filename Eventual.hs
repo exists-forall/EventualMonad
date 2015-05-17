@@ -18,7 +18,6 @@ where
 
 import qualified Data.Map as Map
 import Data.Maybe (fromMaybe)
-import Debug.Trace
 
 class (Ord (TriggerID w)) => Wait w where
 	type EventualGetter w :: * -> *
@@ -32,7 +31,7 @@ data EventualMapKey k v a where
 	EventualMapKey :: k -> EventualMapKey k v v
 
 eventualKey :: k -> EventualMapKey k v v
-eventualKey k = EventualMapKey k
+eventualKey = EventualMapKey
 
 data EventualMapUpdate k v
 	= EventualMapUpdate k v
@@ -55,8 +54,8 @@ instance (Ord k) => Wait (Map.Map k v) where
 data EventualTask w a where
 	EventualTask :: (Wait w) => TriggerID w -> Eventual w a -> EventualTask w a
 
-data Eventual w a where
-	Eventual :: (EventualState w -> (EventualState w, Either (EventualTask w a) a)) -> Eventual w a
+data Eventual w a
+	= Eventual (EventualState w -> (EventualState w, Either (EventualTask w a) a))
 
 data EventualState w where
 	EventualState :: (Wait w) => w -> (Map.Map (TriggerID w) [Eventual w ()]) -> EventualState w
