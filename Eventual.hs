@@ -2,6 +2,11 @@
 
 module Eventual
 	(Wait
+	,EventualGetter
+	,EventualUpdate
+	,TriggerID
+	,tryGetNow
+	,updateNow
 	,EventualMapKey
 	,EventualMapUpdate
 	,eventualKey
